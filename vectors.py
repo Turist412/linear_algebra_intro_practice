@@ -91,9 +91,9 @@ def dot_product(x: np.ndarray, y: np.ndarray) -> float:
     Returns:
         float: dot product.
     """
-    if x.shape[-1] != y.shape[0]:
+    if x.shape != y.shape:
         raise ValueError("Shapes are incompatible for dot product.")
-    return np.dot(x, y)
+    return float(np.dot(x.T, y).item())
 
 def norm(x: np.ndarray, order: int | float) -> float:
     """Vector norm: Manhattan, Euclidean or Max.
@@ -173,3 +173,4 @@ def solves_linear_systems(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     if a.shape[0] != b.shape[0]:
         raise ValueError("Number of rows in matrix a and number of elements in vector b must be the same.")
     return np.linalg.solve(a, b)
+
