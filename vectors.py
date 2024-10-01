@@ -91,8 +91,8 @@ def dot_product(x: np.ndarray, y: np.ndarray) -> float:
     Returns:
         float: dot product.
     """
-    if x.shape != y.shape:
-        raise ValueError("Vectors must have the same shape.")
+    if x.shape[-1] != y.shape[0]:
+        raise ValueError("Shapes are incompatible for dot product.")
     return np.dot(x, y)
 
 def norm(x: np.ndarray, order: int | float) -> float:
