@@ -27,7 +27,7 @@ def get_sparce_vector(dim: int) -> sparse.coo_matrix:
         """
     n_zero = np.random.randint(1, dim)
     row_indices = np.random.choice(dim, n_zero, replace=False)
-    values = np.random.rand(np.random.randint(1, dim))
+    values = np.random.rand(n_zero)
     return sparse.coo_matrix((values, (row_indices, np.zeros(n_zero))), shape=(dim, 1))
 
 
@@ -56,10 +56,7 @@ def scalar_multiplication(x: np.ndarray, a: float) -> np.ndarray:
     Returns:
         np.ndarray: multiplied vector.
     """
-    max_len = len(x)
-    result = np.zeros(max_len)
-    result[:max_len] = x * a
-    return result
+    return np.multiply(x, a)
 
 
 def linear_combination(vectors: Sequence[np.ndarray], coeffs: Sequence[float]) -> np.ndarray:
@@ -81,6 +78,7 @@ def linear_combination(vectors: Sequence[np.ndarray], coeffs: Sequence[float]) -
 
     return result
 
+
 def dot_product(x: np.ndarray, y: np.ndarray) -> float:
     """Vectors dot product.
 
@@ -94,6 +92,7 @@ def dot_product(x: np.ndarray, y: np.ndarray) -> float:
     if x.shape != y.shape:
         raise ValueError("Shapes are incompatible for dot product.")
     return float(np.dot(x.T, y).item())
+
 
 def norm(x: np.ndarray, order: int | float) -> float:
     """Vector norm: Manhattan, Euclidean or Max.
@@ -113,6 +112,7 @@ def norm(x: np.ndarray, order: int | float) -> float:
         return np.max(np.abs(x))
     else:
         raise ValueError("Order must be 1, 2, or inf.")
+
 
 def distance(x: np.ndarray, y: np.ndarray) -> float:
     """L2 distance between vectors.
@@ -173,4 +173,3 @@ def solves_linear_systems(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     if a.shape[0] != b.shape[0]:
         raise ValueError("Number of rows in matrix a and number of elements in vector b must be the same.")
     return np.linalg.solve(a, b)
-
